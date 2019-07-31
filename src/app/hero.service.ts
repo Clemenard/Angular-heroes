@@ -33,6 +33,15 @@ private heroesUrl = 'https://veville.clement-menard.fr/process/fight_tour.php'; 
         );
     }
 
+    getOthersHeroes (id: number): Observable<Hero[]> {
+      const url = `${this.heroesUrl}?id=${id}&list=true`;
+      return this.http.get<Hero[]>(url)
+        .pipe(
+          tap(_ => this.log('fetched heroes')),
+          catchError(this.handleError<Hero[]>('getHeroes', []))
+        );
+    }
+
     getHero(id: number): Observable<Hero> {
       const url = `${this.heroesUrl}?id=${id}`;
       return this.http.get<Hero>(url).pipe(
@@ -63,7 +72,10 @@ updateHero (hero: Hero): Observable<any> {
 
 /** POST: add a new hero to the server */
 addHero (hero: Hero): Observable<Hero> {
-  return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
+  hero.id=null;
+  console.log(hero);
+  const url = `${this.heroesUrl}?action=add`;
+   return this.http.post<Hero>(this.url, hero, this.httpOptions).pipe(
     tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
     catchError(this.handleError<Hero>('addHero'))
   );

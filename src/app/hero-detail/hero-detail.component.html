@@ -1,17 +1,17 @@
 <div *ngIf="hero">
 
-    <h2>{{hero.name | titlecase }} the {{hero.class | titlecase }}</h2>
+    <h2>{{hero.name | titlecase }} the {{hero.job | titlecase }}</h2>
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label>name:
       <input [(ngModel)]="hero.name" placeholder="name"/>
     </label>
   </div>
-  <form action="">
+  <form *ngIf="heroes" action="">
 
-       <label for="pays">Dans quel pays habitez-vous ?</label><br />
-       <select name="pays" id="pays">
-           <option *ngFor= "let ennemy of heroes"  value="{{ennemy.name}}">{{hero.name}}</option>
+       <label for="combat">Défiez un adversaire</label><br />
+       <select name="combat" id="combat">
+           <option *ngFor= "let ennemy of heroes" value="{{ennemy.name}}">{{ennemy.name}}</option>
        </select>
 
     <input type="submit" value="Défier">
